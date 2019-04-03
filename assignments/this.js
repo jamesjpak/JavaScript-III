@@ -20,18 +20,61 @@
 
 // Principle 1
 // code example for Window Binding
-
+function theProof() {
+    console.log(this);
+}
 
 
 // Principle 2
 // code example for Implicit Binding
+
+const theAnnouncement = function(obj) {
+    obj.theAnnouncement = function() {
+        console.log(`Off with the head of ${this.name}!`);
+        console.log(this);
+    };
+};
+
+const me = { name: 'James' };
+theAnnouncement(me);
+
+me.theAnnouncement();
 
 
 
 // Principle 3
 // code example for New Binding
 
+function securityRoster(guard) {
+    this.greeting = 'Salute';
+    this.guard = guard;
+    this.shout = function () {
+        console.log(this.greeting + " " + this.guard + "!");
+        
+    };
+}
+
+ const Sergeant = new securityRoster('Pochenko');
+ const Pochenko = new securityRoster('Sergeant');
+
+// Sergeant.shout();
+// Pochenko.shout();
+
 
 
 // Principle 4
 // code example for Explicit Binding
+
+function securityRoster(guard) {
+    this.greeting = 'Salute';
+    this.guard = guard;
+    this.shout = function () {
+        console.log(this.greeting + " " + this.guard + "!");
+        
+    };
+}
+
+Sergeant.shout.call(Pochenko);
+Pochenko.shout.apply(Sergeant);
+
+
