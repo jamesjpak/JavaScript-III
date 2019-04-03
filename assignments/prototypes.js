@@ -37,7 +37,7 @@ function CharacterStats(stats) {
 };
 CharacterStats.prototype = Object.create(GameObject.prototype)
 
-CharachterStats.prototype.takeDamage = function () {
+CharacterStats.prototype.takeDamage = function () {
   return `${this.name} took damage`;
 }
 
@@ -52,17 +52,17 @@ CharachterStats.prototype.takeDamage = function () {
   * should inherit takeDamage() from CharacterStats
 */
 
-    function Humanoid(attributes) {
-      GameObject.call(this, stats)
-      this.newName = attributes.name;
-      this.newPhrase = attributes.phrase;
-      console.log(this);
+    function Humanoid(stats) {
+      CharacterStats.call(this, stats)
+      this.team = stats.team;
+      this.weapons = stats.weapons;
+      this.language = stats.language;
     }
     Humanoid.prototype = Object.create(CharacterStats.prototype);
 
 
     Humanoid.prototype.greet = function() {
-      return `${this.newName} says ${this.newPhrase}`;
+      return `${this.name} offers a greeting in ${this.language}`;
     }
  
 /*
@@ -73,7 +73,7 @@ CharachterStats.prototype.takeDamage = function () {
 
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -134,9 +134,33 @@ CharachterStats.prototype.takeDamage = function () {
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
+    function Hero(stats) {
+      Humanoid.call(this, stats)
+       this.origin = stats.origin;
+    }
+    Hero.prototype = Object.create(Humanoid.prototype);
+
+    Hero.prototype.protect = function() {
+      return `${this.name} declares protection over his home state of ${this.origin}!`;
+    }
+
+
+    function Villain(stats) {
+      Humanoid.call(this, stats)
+       
+    };
+    Villain.prototype = Object.create(Humanoid.prototype);
+
+    Villain.prototype.pillage = function() {
+      return `${this.name} set the town ablaze!`;
+    }
+
+
+
+
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
